@@ -1,0 +1,69 @@
+import  {test, expect} from "@playwright/test"
+import {getRawAsset} from "node:sea";
+test.beforeEach(async ({page})=> {
+    console.log("Starting navigation")
+    await page.goto("https://demoqa.com/automation-practice-form");
+})
+
+
+test("Fill 'First name' valid name", async ({page})=> {
+    const firstName = await page.getByPlaceholder('First Name');
+    const lastName = await page.getByPlaceholder('Last Name');
+    const emailField = await page.getByPlaceholder('name@example.com');
+    const radioBtnMale = await page.locator('#gender-radio-1').locator('..');
+    const radioBtnFemale = await page.locator('#gender-radio-2').locator('..');
+    const radioBtnOther = await page.locator('#gender-radio-3').locator('..');
+    const mobileNumber = await page.getByPlaceholder('Mobile Number');
+    const dateOfBirth = await page.locator('#dateOfBirthInput');
+    const subjectContainer = await page.locator('#subjectsContainer');
+    const checkbox1 = await page.locator('#hobbies-checkbox-1').locator('..');
+    const checkbox2 = await page.locator('#hobbies-checkbox-2').locator('..');
+    const checkbox3 = await page.locator('#hobbies-checkbox-3').locator('..');
+    const currentAddress = await page.locator('#currentAddress');
+    //const selectedState = await page.locator('#state .css-1uccc91-singleValue');
+    //const selectedCity = await page.locator('#city .css-1uccc91-singleValue');
+    const submitBtn = await page.getByRole('button', {name: "Submit"});
+
+
+    const firstNameValue = "Emilya";
+    await firstName.click();
+    await firstName.fill(firstNameValue);
+
+    const lastNameValue = "Grigoryan";
+    await lastName.click();
+    await lastName.fill(lastNameValue);
+
+    const emailFieldValue= "name@example.com";
+    await emailField.click();
+    await emailField.fill(emailFieldValue);
+
+    await radioBtnFemale.click();
+
+    const mobileNumberValue = "1023456789";
+    await mobileNumber.click();
+    await mobileNumber.fill(mobileNumberValue);
+
+    const dateOfBirthValue = "08 Oct 2005"
+    await dateOfBirth.click();
+    await dateOfBirth.fill(dateOfBirthValue);
+
+    const subjectContainerValue = await page.locator('#subjectsContainer').locator('>div').locator('>div');
+    await subjectContainer.click();
+    await subjectContainerValue.locator('[id="subjectsInput"]').fill("Math");
+
+    //await checkbox3.click();
+
+    const currentAddressValue = "Shirakaci 7";
+    await currentAddress.click();
+    await currentAddress.fill(currentAddressValue);
+
+    await page.locator('#state').click();
+    await page.locator('text="NCR"').click();
+
+    await page.locator('#city').click();
+    await page.locator('text="Noida"').click();
+
+    await submitBtn.click();
+
+})
+
